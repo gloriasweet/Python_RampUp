@@ -1,0 +1,30 @@
+Here is a way to connect to RedShift DB using Python library [psycopg2].
+psycopg2: A Python-PostgreSQL Database Adapter
+
+#!/usr/bin/python
+import psycopg2
+import sys
+import pprint
+from datetime import date, timedelta
+
+#Connect to RedShift
+conn_string = "dbname='DBNAME' port='5439' user='USER' password='PWD' host='REDSHIFT_INSTANCE_NAME.redshift.amazonaws.com'";
+print "Connecting to database\n        ->%s" % (conn_string)
+conn = psycopg2.connect(conn_string);
+
+cursor = conn.cursor();
+
+#Captures Column Names 
+column_names = [];
+cursor.execute("Select * from SCHEMA_NAME.TABLE_NAME limit 0;");
+column_names = [desc[0] for desc in cursor.description]
+all_cols=', '.join([str(x) for x in column_names])
+print all_cols;
+
+#NR for this - argument under timedelta can be taken as  int(str(sys.argv[1]))
+yest = date.today() - timedelta(1);
+yest_str= yest.strftime('%Y-%m-%d');
+print "Yesterday was\n        ->%s" % (yest_str)
+
+conn.commit();
+conn.close();
