@@ -1,0 +1,18 @@
+#You may want to not have the columns you are grouping by become your index
+#this can be easily achieved as shown below
+
+letterone = df.groupby(['letter','one'], as_index=False).sum()
+
+#Create categorical ranges for numerical data. Note that that you can specifiy the number of ranges you wish
+incomeranges = pd.cut(ver['applicant_income_000s'], 14)
+incomeranges[:5]
+
+#Get the unique values for a column by name
+data['county_name'].unique()
+
+#Crosstab of the data by specified columns
+pd.crosstab(data['county_name'],data['action_taken_name'])
+
+#Return a subset of the data
+incomesubset = ver[(ver['applicant_income_000s'] > 0 ) & (ver['applicant_income_000s'] < 1000)]
+incomesubset
