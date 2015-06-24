@@ -16,3 +16,6 @@ pd.crosstab(data['county_name'],data['action_taken_name'])
 #Return a subset of the data
 incomesubset = ver[(ver['applicant_income_000s'] > 0 ) & (ver['applicant_income_000s'] < 1000)]
 incomesubset
+
+#Get descriptive statistics for a specified column
+ver.applicant_income_000s.describe() 
